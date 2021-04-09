@@ -14,7 +14,7 @@ def index():
 
 @app.route('/latest.txt')
 def latest():
-    page = requests.get('https://python.org/').text
+    page = requests.get('https://python.org/', headers={'User-Agent': "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0"}).text
     where = page.find('<h1>Python ') + 11
     if where == 10:
         return Response('Unknown', mimetype="text/plain")
