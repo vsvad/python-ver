@@ -18,7 +18,7 @@ def latest():
     soup = BeautifulSoup(requests.get('https://python.org/').text, 'html.parser')
     tags = soup.find_all('a')
     for tag in tags:
-        match = re.search('^\d\.\d(\.\d)?', a['href'])
+        match = re.search('^\d\.\d(\.\d)?', tag['href'])
         if match:
             span = match.span()
             result = match.string[span[0]:span[1]]
