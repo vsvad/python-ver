@@ -15,15 +15,11 @@ def index():
 
 @app.route('/latest.txt')
 def latest():
-    soup = BeautifulSoup(requests.get('https://python.org/').text, 'html.parser')
-    tags = soup.find_all('a')
-    for tag in tags:
-        match = re.search('^\d\.\d(\.\d)?', tag['href'])
-        if match:
-            span = match.span()
-            result = match.string[span[0]:span[1]]
-            return Response(result, mimetype="text/plain")
-    return Response('Unknown', mimetype="text/plain")
+    page = requests.get('https://python.org/').text
+    where = page.find('<h1>Python ') + 11
+    if where == 10:
+        return Response('Unknown', mimetype="text/plain")
+    return page[where:where+5]
 
 
 app.run(host='0.0.0.0', port=os.environ.get('PORT', 8000))
