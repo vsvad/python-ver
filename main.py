@@ -3,7 +3,6 @@ import requests
 import re
 import os
 import sys
-from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -19,7 +18,7 @@ def latest():
     where = page.find('<h1>Python ') + 11
     if where == 10:
         return Response('Unknown', mimetype="text/plain")
-    return page[where:where+5]
+    return Response(page[where:where+5], mimetype="text/plain")
 
 
 app.run(host='0.0.0.0', port=os.environ.get('PORT', 8000))
